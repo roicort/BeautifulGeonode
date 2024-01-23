@@ -19,12 +19,18 @@
 #########################################################################
 
 from geonode.urls import urlpatterns
+from django.urls import include, path
 
-"""
-# You can register your own urlpatterns here
-urlpatterns = [
-    url(r'^/?$',
-        homepage,
-        name='home'),
- ] + urlpatterns
-"""
+try:
+    from wagtail.admin import urls as wagtailadmin_urls
+    from wagtail import urls as wagtail_urls
+    from wagtail.documents import urls as wagtaildocs_urls
+    if wagtail_urls not in urlpatterns:
+        urlpatterns += [
+            path('cms/', include(wagtailadmin_urls)),
+            path('documents/', include(wagtaildocs_urls)),
+            path('pages/', include(wagtail_urls)),
+        ] 
+except ImportError:
+    print("Wagtail not installed")
+    pass

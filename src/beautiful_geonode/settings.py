@@ -65,7 +65,7 @@ ROOT_URLCONF = os.getenv("ROOT_URLCONF", "{}.urls".format(PROJECT_NAME))
 # Additional directories which hold static files
 # - Give priority to local geonode-project ones
 STATICFILES_DIRS = [
-    os.path.join(LOCAL_ROOT, "static"),
+    os.path.join(LOCAL_ROOT, 'static'),
 ] + STATICFILES_DIRS
 
 # Location of locale files
@@ -162,3 +162,34 @@ if LDAP_ENABLED and "geonode_ldap" not in INSTALLED_APPS:
 
 # Add your specific LDAP configuration after this comment:
 # https://docs.geonode.org/en/master/advanced/contrib/#configuration
+
+"""
+# Wagtail settings
+
+WAGTAIL_SITE_NAME = "beautiful_geonode"
+
+INSTALLED_APPS += (
+    'wagtail.contrib.forms',
+    'wagtail.contrib.redirects',
+    'wagtail.embeds',
+    'wagtail.sites',
+    'wagtail.users',
+    'wagtail.snippets',
+    'wagtail.documents',
+    'wagtail.images',
+    'wagtail.search',
+    'wagtail.admin',
+    'wagtail',
+
+    'modelcluster')
+
+MIDDLEWARE += ('wagtail.contrib.redirects.middleware.RedirectMiddleware',)
+
+STATIC_ROOT = os.path.join(LOCAL_ROOT)
+MEDIA_ROOT = os.path.join(LOCAL_ROOT, 'media')
+
+STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+
+WAGTAILADMIN_BASE_URL = 'localhost'
+"""
