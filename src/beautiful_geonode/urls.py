@@ -21,6 +21,25 @@
 from geonode.urls import urlpatterns
 from django.urls import include, path
 
+try: 
+    from django.views.generic import TemplateView
+    from homecollections.models import HomeCollection
+
+    class HomePageView(TemplateView):
+        template_name = "index.html"
+
+        def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['collections'] = HomeCollection.objects.all()
+            return context
+        
+    urlpatterns = [
+        path('', HomePageView.as_view(), name='home'),
+    ] + urlpatterns
+except Exception as e:
+    print(e)
+    pass
+
 try:
     from wagtail.admin import urls as wagtailadmin_urls
     from wagtail import urls as wagtail_urls

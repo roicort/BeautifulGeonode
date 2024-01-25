@@ -163,11 +163,17 @@ if LDAP_ENABLED and "geonode_ldap" not in INSTALLED_APPS:
 # Add your specific LDAP configuration after this comment:
 # https://docs.geonode.org/en/master/advanced/contrib/#configuration
 
+# Custom apps
+
+INSTALLED_APPS += ('homecollections',)
+
 
 # Wagtail settings
 
 # Check if wagtail is installed
+
 """
+
 try:
     import importlib.util
     if importlib.util.find_spec("wagtail"):
@@ -197,7 +203,7 @@ try:
 
         WAGTAILADMIN_BASE_URL = 'localhost'
 
-except ImportError:
-    print("Wagtail not installed")
+except Exception as e:
+    print(e)
     pass
 """

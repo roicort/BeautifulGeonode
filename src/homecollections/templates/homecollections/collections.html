@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .column {
+            margin: 5%;
+            text-align: center;
+        }
+        .material-icons {
+            font-size: 5em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% for collection in collections %}
+            <div class="column">
+                {% if collection.link_type == 'external' %}
+                    <a href="{{ collection.url }}">
+                        <i class="material-icons">{{ collection.material_icon }}</i>
+                    </a>
+                {% endif %}
+                {% if collection.link_type == 'keywords' %}
+                    <a href="catalogue/#/?{% for keyword in collection.keywords %}filter%7Bkeywords.slug.in%7D={{ keyword }}{% endfor %}">
+                        <i class="material-icons">{{ collection.material_icon }}</i>
+                    </a>
+                {% endif %}
+                <p>{{ collection.name }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
