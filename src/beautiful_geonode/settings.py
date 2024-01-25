@@ -163,33 +163,41 @@ if LDAP_ENABLED and "geonode_ldap" not in INSTALLED_APPS:
 # Add your specific LDAP configuration after this comment:
 # https://docs.geonode.org/en/master/advanced/contrib/#configuration
 
-"""
+
 # Wagtail settings
 
-WAGTAIL_SITE_NAME = "beautiful_geonode"
+# Check if wagtail is installed
+"""
+try:
+    import importlib.util
+    if importlib.util.find_spec("wagtail"):
+        WAGTAIL_SITE_NAME = "beautiful_geonode"
+        INSTALLED_APPS += (
+        'wagtail.contrib.forms',
+        'wagtail.contrib.redirects',
+        'wagtail.embeds',
+        'wagtail.sites',
+        'wagtail.users',
+        'wagtail.snippets',
+        'wagtail.documents',
+        'wagtail.images',
+        'wagtail.search',
+        'wagtail.admin',
+        'wagtail',
 
-INSTALLED_APPS += (
-    'wagtail.contrib.forms',
-    'wagtail.contrib.redirects',
-    'wagtail.embeds',
-    'wagtail.sites',
-    'wagtail.users',
-    'wagtail.snippets',
-    'wagtail.documents',
-    'wagtail.images',
-    'wagtail.search',
-    'wagtail.admin',
-    'wagtail',
+        'modelcluster')
 
-    'modelcluster')
+        MIDDLEWARE += ('wagtail.contrib.redirects.middleware.RedirectMiddleware',)
 
-MIDDLEWARE += ('wagtail.contrib.redirects.middleware.RedirectMiddleware',)
+        STATIC_ROOT = os.path.join(LOCAL_ROOT)
+        MEDIA_ROOT = os.path.join(LOCAL_ROOT, 'media')
 
-STATIC_ROOT = os.path.join(LOCAL_ROOT)
-MEDIA_ROOT = os.path.join(LOCAL_ROOT, 'media')
+        STATIC_URL = '/static/'
+        MEDIA_URL = '/media/'
 
-STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
+        WAGTAILADMIN_BASE_URL = 'localhost'
 
-WAGTAILADMIN_BASE_URL = 'localhost'
+except ImportError:
+    print("Wagtail not installed")
+    pass
 """

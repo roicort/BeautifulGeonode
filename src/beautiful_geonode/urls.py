@@ -31,6 +31,6 @@ try:
             path('documents/', include(wagtaildocs_urls)),
             path('pages/', include(wagtail_urls)),
         ] 
-except ImportError:
+except RuntimeError:
     print("Wagtail not installed")
     pass
