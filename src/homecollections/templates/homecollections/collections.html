@@ -27,7 +27,7 @@
                     </a>
                 {% endif %}
                 {% if collection.link_type == 'keywords' %}
-                    <a href="catalogue/#/?{% for keyword in collection.keywords.all %}filter%7Bkeywords.slug.in%7D={{ keyword }}{% endfor %}">
+                    <a href="catalogue/#/?{% for keyword in collection.keywords.all %}filter%7Bkeywords.slug.in%7D={{ keyword }}{% if not forloop.last %}&{% endif %}{% endfor %}">
                         <i class="material-icons">{{ collection.material_icon }}</i>
                     </a>
                 {% endif %}

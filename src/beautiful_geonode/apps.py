@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 #########################################################################
+
 import os
 from django.apps import AppConfig as BaseAppConfig
 from django.db import models
@@ -55,20 +56,20 @@ class AppConfig(BaseAppConfig):
         is_tabular = forms.BooleanField(label=_("Is tabular?"), required=False)
         cls.base_fields['is_tabular'] = is_tabular
 
-    def patch_dataset_save(self, sender, instance, created, **kwargs):
+    def patch_dataset_save(self, sender, instance, **kwargs):
         self._get_logger().info("Patching Dataset save")
         if instance.is_tabular:
             type(instance).objects.filter(pk=instance.pk).update(subtype='tabular')
-       
+
     def ready(self):
         super(AppConfig, self).ready()
         run_setup_hooks()
-
+        
         try:
             from geonode.layers.models import Dataset
             from geonode.layers.forms import DatasetForm
-            #self.patch_dataset(Dataset)
-            #self.patch_dataset_form(DatasetForm)
-            #models.signals.post_save.connect(self.patch_dataset_save, sender=Dataset)
+            self.patch_dataset(Dataset)
+            self.patch_dataset_form(DatasetForm)
+            models.signals.post_save.connect(self.patch_dataset_save, sender=Dataset)
         except Exception as e:
             self._get_logger().error("Error patching Dataset: %s" % e)
