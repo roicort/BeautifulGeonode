@@ -4,7 +4,11 @@
 * Wagtail 5
 * Tabular dataset using tabular subtype (In-progress)
 
-![image](/src/mty_geonode/static/img/home.png)
+![image](/src/beautiful_geonode/static/img/home.png)
+
+* HomeCollection App
+
+![image](/src/beautiful_geonode/static/img/homecollection.png)
 
 ## Requirements
 

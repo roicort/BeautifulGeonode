@@ -68,8 +68,8 @@ class AppConfig(BaseAppConfig):
         try:
             from geonode.layers.models import Dataset
             from geonode.layers.forms import DatasetForm
-            self.patch_dataset(Dataset)
-            self.patch_dataset_form(DatasetForm)
-            models.signals.post_save.connect(self.patch_dataset_save, sender=Dataset)
+            #self.patch_dataset(Dataset)
+            #self.patch_dataset_form(DatasetForm)
+            #models.signals.post_save.connect(self.patch_dataset_save, sender=Dataset)
         except Exception as e:
             self._get_logger().error("Error patching Dataset: %s" % e)
